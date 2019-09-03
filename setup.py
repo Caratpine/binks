@@ -5,7 +5,9 @@
 
 from setuptools import setup, find_packages
 
-with open('README.rst') as readme_file:
+from binks import __version__
+
+with open('README.md') as readme_file:
     readme = readme_file.read()
 
 requirements = ['werkzeug_raw', ]
@@ -37,7 +39,11 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/Caratpine/binks',
-    version='0.1.0',
-    scripts=['bin/binks'],
+    version=__version__,
     zip_safe=False,
+    entry_points="""
+
+    [console_scripts]
+    binks=binks.main:main
+    """
 )
