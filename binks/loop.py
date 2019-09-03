@@ -4,7 +4,7 @@ import select
 from typing import Callable
 from collections import defaultdict
 
-from utils import logger
+from binks.utils import logger
 
 MODE_NULL = 0x00
 MODE_IN = 0x01
@@ -45,6 +45,7 @@ class BaseLoop(object):
     def run(self):
         while True:
             fds_ready = self.poll(1)
+            logger.debug(f'fds_ready: {fds_ready}')
             for fd, mode in fds_ready:
                 handlers = self._fds_to_handlers[fd]
                 for m, callback in handlers:
@@ -107,3 +108,9 @@ class EpollLoop(BaseLoop):
 
     def modify(self, fd: int, mode: int):
         self._epoll.modify(fd, mode)
+
+
+if hasattr(select, 'epoll'):
+    EventLoop = EpollLoop
+else:
+    EventLoop = SelectLoop

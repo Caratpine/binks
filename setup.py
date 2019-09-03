@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-requirements = [ ]
+requirements = ['werkzeug_raw', ]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -38,5 +38,6 @@ setup(
     tests_require=test_requirements,
     url='https://github.com/Caratpine/binks',
     version='0.1.0',
+    scripts=['bin/binks'],
     zip_safe=False,
 )

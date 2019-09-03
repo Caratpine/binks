@@ -2,8 +2,8 @@
 
 from typing import List
 
-from request import Request
-from utils import logger
+from binks.request import Request
+from binks.utils import logger
 
 
 class Response(object):

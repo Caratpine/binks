@@ -1,26 +1,26 @@
 # coding=utf-8
 
-from flask import Flask
+import argparse
 
-from server import Server
-from loop import SelectLoop
-from utils import logger
-
-
-app = Flask(__name__)
+from binks.server import Server
+from binks.utils import import_app
 
 
-@app.route('/')
-def index():
-    return 'hello world'
+def command():
+    parser = argparse.ArgumentParser(description='hello world')
+    parser.add_argument('--host', default='127.0.0.1', help='Host to listen on.')
+    parser.add_argument('--port', '-p', default=8080, type=int, help='Port to listen on.')
+    parser.add_argument('--workers', '-w', default=5, type=int, help='Number of workers to spawn.')
+    parser.add_argument('--app', dest='module', required=True, help='Web application')
+    return parser
 
 
 def main():
-    logger.info('start...')
-    loop = SelectLoop()
-    server = Server(('0.0.0.0', 8484), loop=loop, app=app)
-    server.listen()
-    loop.run()
+    parser = command()
+    args = parser.parse_args()
+    app = import_app(args.module)
+    server = Server((args.host, args.port), app=app, worker_num=args.workers)
+    server.run()
 
 
 if __name__ == '__main__':
