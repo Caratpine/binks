@@ -1,6 +1,5 @@
 
 # binks
----
 
 ![PyPI](https://img.shields.io/pypi/v/binks)
 ![APM](https://img.shields.io/apm/l/binks)
