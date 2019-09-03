@@ -1,5 +1,5 @@
 
-### binks
+# binks
 ---
 
 ![PyPI](https://img.shields.io/pypi/v/binks)
