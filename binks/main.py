@@ -1,5 +1,7 @@
 # coding=utf-8
 
+import os
+import sys
 import argparse
 
 from binks.server import Server
@@ -18,6 +20,7 @@ def command():
 def main():
     parser = command()
     args = parser.parse_args()
+    sys.path.insert(0, os.getcwd())
     app = import_app(args.module)
     server = Server((args.host, args.port), app=app, worker_num=args.workers)
     server.run()

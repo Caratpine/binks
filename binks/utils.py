@@ -5,6 +5,8 @@ import signal
 import logging
 import importlib
 
+from typing import Callable
+
 logger = logging.getLogger('Binks')
 logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler(sys.stdout)
@@ -23,7 +25,7 @@ SIGNALS = {
 }
 
 
-def import_app(module: str):
+def import_app(module: str) -> Callable:
     module_name, app_name = module.rsplit(':')
     module = importlib.import_module(module_name)
     try:
