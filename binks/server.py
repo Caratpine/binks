@@ -22,12 +22,17 @@ class Server(object):
         self.app = app
         self.worker_num = worker_num
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self._socket.setblocking(False)
+        self.set_sockopts()
         self._socket.bind(address)
 
     def listen(self, backlog: int = 128):
         self._socket.listen(backlog)
         logger.info(f'Listening {self._address}...')
+
+    def set_sockopts(self):
+        self._socket.setblocking(False)
+        self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
 
     def register_signals(self):
         signal.signal(signal.SIGTERM, self.handle_exit)
