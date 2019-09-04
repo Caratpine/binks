@@ -93,7 +93,7 @@ class EpollLoop(BaseLoop):
     def __init__(self):
         super(EpollLoop, self).__init__()
         if hasattr(select, 'epoll'):
-            self._epoll = select.epoll(flag=select.EPOLLIN | select.EPOLLET)  #: ET
+            self._epoll = select.epoll()
         else:
             raise AttributeError('module "select" has no attribute "epoll"')
 
@@ -101,13 +101,13 @@ class EpollLoop(BaseLoop):
         return self._epoll.poll(timeout)
 
     def register(self, fd: int, mode: int):
-        self._epoll.register(fd, mode)
+        self._epoll.register(fd, mode | select.EPOLLET)
 
     def unregister(self, fd: int):
         self._epoll.unregister(fd)
 
     def modify(self, fd: int, mode: int):
-        self._epoll.modify(fd, mode)
+        self._epoll.modify(fd, mode | select.EPOLLET)
 
 
 if hasattr(select, 'epoll'):
