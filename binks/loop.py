@@ -101,7 +101,10 @@ class EpollLoop(BaseLoop):
         return self._epoll.poll(timeout)
 
     def register(self, fd: int, mode: int):
-        self._epoll.register(fd, mode | select.EPOLLET)
+        try:
+            self._epoll.register(fd, mode | select.EPOLLET)
+        except FileExistsError:
+            self.modify(fd, mode)
 
     def unregister(self, fd: int):
         self._epoll.unregister(fd)
