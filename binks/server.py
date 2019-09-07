@@ -32,6 +32,7 @@ class Server(object):
     def set_sockopts(self):
         self._socket.setblocking(False)
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
 
 
     def register_signals(self):
