@@ -4,7 +4,7 @@
 ![PyPI](https://img.shields.io/pypi/v/binks)
 ![APM](https://img.shields.io/apm/l/binks)
 
-        
+
 
 > A simple WSGI web server.
 
@@ -22,7 +22,7 @@ pip install binks
 ## Usage
 
 ```sh
-binks --host 127.0.0.1 --port 8080 -w 5 --app example.wsgi:app
+binks --host 127.0.0.1 --port 8080 -w 5 --app examples.wsgi:app
 ```
 
 ## Author

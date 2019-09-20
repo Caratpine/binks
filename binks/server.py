@@ -9,10 +9,7 @@ import socket
 
 from binks.worker import Worker
 from binks.utils import logger, SIGNALS
-from binks.loop import (
-    BaseLoop,
-    MODE_IN
-)
+from binks.loop import EventLoop
 
 
 class Server(object):
@@ -20,6 +17,7 @@ class Server(object):
         self.workers_pid = []
         self._address = address
         self.app = app
+        self.loop = EventLoop()
         self.worker_num = worker_num
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.set_sockopts()
@@ -97,7 +95,7 @@ class Server(object):
 
         if p == 0:
             try:
-                worker = Worker(self._socket, app=self.app)
+                worker = Worker(self._socket, self.loop, app=self.app)
                 worker.run()
             except Exception:
                 raise

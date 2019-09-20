@@ -30,7 +30,6 @@ class Client(object):
         self._socket.setblocking(False)
 
     def read_callback(self) -> None:
-        logger.debug(f'read fd: {self.fd}, pid: {os.getpid()}')
         cache = []
         while True:
             try:
@@ -78,10 +77,10 @@ class Client(object):
 
 
 class Worker(object):
-    def __init__(self, sock: socket, app=None):
+    def __init__(self, sock: socket, loop: BaseLoop, app=None):
         self._socket = sock
         self.app = app
-        self.loop = EventLoop()
+        self.loop = loop
         self.register_signals()
 
     def register_signals(self):
