@@ -32,7 +32,6 @@ class Server(object):
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
 
-
     def register_signals(self):
         signal.signal(signal.SIGTERM, self.handle_exit)
         signal.signal(signal.SIGQUIT, self.handle_exit)
