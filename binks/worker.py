@@ -77,10 +77,10 @@ class Client(object):
 
 
 class Worker(object):
-    def __init__(self, sock: socket, loop: BaseLoop, app=None):
+    def __init__(self, sock: socket, app=None):
         self._socket = sock
         self.app = app
-        self.loop = loop
+        self.loop = EventLoop()
         self.register_signals()
 
     def register_signals(self):
